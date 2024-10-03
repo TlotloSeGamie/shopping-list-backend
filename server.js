@@ -2,11 +2,9 @@ const { createServer } = require('node:http');
 const fs = require('fs');
 const path = require('path');
 
-// Server configurations
 const hostname = '127.0.0.1';
 const port = 3000;
 
-// File Manager configurations
 const dirName = 'data';
 const fileName = 'shopping-list.json';
 const filePath = path.join(__dirname, dirName, fileName);
@@ -44,14 +42,13 @@ function handleShoppingList(req, res) {
     res.end(JSON.stringify(shoppingList));
   }
 
-  // Handle POST request to add an item to the shopping list
   else if (req.method === 'POST') {
     req.on('data', chunk => body += chunk.toString());
     req.on('end', () => {
       const newItem = JSON.parse(body);
       const shoppingList = readShoppingList();
-      shoppingList.push(newItem); // Add the new item
-      writeShoppingList(shoppingList); // Write updated list to file
+      shoppingList.push(newItem); 
+      writeShoppingList(shoppingList); 
       res.statusCode = 201;
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify(newItem));
@@ -98,20 +95,19 @@ function handleShoppingList(req, res) {
     });
   }
 
-  // Handle unsupported methods
+ 
   else {
     res.statusCode = 405;
     res.end(JSON.stringify({ message: 'Method not allowed' }));
   }
 }
 
-// Initialize the file system and create the directory and file if needed
+
 initializeFileSystem();
 
-// Create the HTTP server
 const server = createServer((req, res) => {
   if (req.url === '/shopping-list') {
-    handleShoppingList(req, res); // Handle the /shopping-list route
+    handleShoppingList(req, res); 
   } else {
     res.statusCode = 404;
     res.setHeader('Content-Type', 'text/plain');
@@ -119,7 +115,6 @@ const server = createServer((req, res) => {
   }
 });
 
-// Start the server
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/shopping-list`);
 });

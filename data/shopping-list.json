@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": 1,
+    "item": "Milk",
+    "quantity": 2
+  },
+  {
+    "id": 2,
+    "item": "bottle",
+    "quantity": 2
+  },
+  {
+    "id": 3,
+    "item": "Wheat flour",
+    "quantity": 1
+  }
+]
